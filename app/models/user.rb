@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :omniauthable, :omniauth_providers => [:facebook]
 
+  has_many :ratings
+  has_many :movies_rated, through: :ratings, class_name: 'Movie'
   has_and_belongs_to_many :watchlist, join_table: :movies_users, class_name: 'Movie'
 
   def self.new_with_session(params, session)

@@ -5,6 +5,7 @@ RSpec.describe MoviesController do
   let(:movie) { create(:movie) }
   let(:actor) { create(:celebrity, name: 'amr', type: 'Actor') }
   let(:director) { create(:celebrity, name: 'adel', type: 'Director')}
+  let(:user) { create(:user) }
 
   describe 'GET #open_this_week' do
     before(:each) do
@@ -30,6 +31,17 @@ RSpec.describe MoviesController do
 
     context 'when user asks to filter movies my name or celebrity names' do
       it { expect(assigns(:movies).to_a).not_to be_empty }
+    end
+  end
+
+  describe 'GET #rating_info' do
+    before(:each) do
+      user.ratings << create(:rating, rate: 3, movie: movie)
+      get :rating_info, xhr: true, params: { movie_id: movie.id }
+    end
+
+    context 'when user asks rating info' do
+      it { expect(JSON.parse(response.body)).not_to be_empty }
     end
   end
 
