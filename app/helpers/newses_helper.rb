@@ -1,0 +1,2 @@
+module NewsesHelper
+end
