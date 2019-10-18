@@ -34,12 +34,15 @@ RSpec.describe MoviesController do
   end
 
   describe 'POST #watchlist_it' do
-    before(:each) do
-      get :watchlist_it, xhr: true, params: { movie_id: movie.id }
-    end
+    context 'when user asks to add movie to watchlist' do
+      login
 
-    context 'when user asks to filter movies my name or celebrity names' do
-      it { expect(JSON.parser(response)['success']).to be_truthy }
+      before(:each) do
+        get :watchlist_it, xhr: true, params: { movie_id: movie.id }
+      end
+      it 'should be added' do
+        expect(JSON.parse(response.body)['success']).to be_truthy
+      end
     end
   end
 end

@@ -5,6 +5,7 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'rspec/rails'
 require 'support/factory_girl'
 require 'support/contoller_helper'
+require 'support/devise'
 
 begin
   ActiveRecord::Migration.maintain_test_schema!
@@ -29,4 +30,7 @@ RSpec.configure do |config|
       example.run
     end
   end
+
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Warden::Test::Helpers
 end
