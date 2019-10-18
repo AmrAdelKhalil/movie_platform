@@ -23,6 +23,13 @@ class MoviesController < ApplicationController
     end
   end
 
+  def add_review
+    response = MovieServices::AddRate.call(current_user, rating_params)
+    respond_to do |format|
+      format.json { render json: response, status: :ok}
+    end
+  end
+
   private
 
   def filter_params
@@ -31,5 +38,9 @@ class MoviesController < ApplicationController
 
   def watchlist_params
     params.permit(:movie_id)
+  end
+
+  def rating_params
+    params.permit(:movie_id, :rate)
   end
 end

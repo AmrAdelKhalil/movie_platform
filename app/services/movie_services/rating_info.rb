@@ -6,7 +6,8 @@ module MovieServices
       ratings = Rating.where(movie_id: movie_id).group(:rate).count
       score_sum = ratings.map{|score, num_of_raters| score * num_of_raters}.reduce(:+)
       raters = ratings.values.reduce(:+)
-      total = (1.0 * score_sum) / (raters * Rating::RATE_SCALE)
+
+      total = (score_sum.to_f) / ((raters || 1) * Rating::RATE_SCALE)
       {
         score: total,
         number_of_raters: raters,
