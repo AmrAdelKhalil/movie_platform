@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  get 'movies/add_review'
   get 'movies/rating_info'
   get 'movies/watchlist_it'
   get 'movies/search'
