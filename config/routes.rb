@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'movies/search'
   get 'newses/search'
   get 'newses/index'
   get 'genres/movies_with_genre'

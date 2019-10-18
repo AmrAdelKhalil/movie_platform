@@ -24,6 +24,7 @@ RSpec.describe MoviesController do
 
   describe 'GET #search' do
     before(:each) do
+      movie.celebrities << [actor, director]
       get :search, xhr: true, params: { by_movie_name: 'a', by_celebrity_name: 'd' }
     end
 
