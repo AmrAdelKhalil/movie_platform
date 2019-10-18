@@ -10,6 +10,12 @@ class MoviesController < ApplicationController
     end
   end
 
+  def rating_info
+    respond_to do |format|
+      format.json { render json: MovieServices::RatingInfo.call(params[:movie_id]), status: :ok}
+    end
+  end
+
   private
 
   def filter_params

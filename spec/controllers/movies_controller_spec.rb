@@ -5,6 +5,7 @@ RSpec.describe MoviesController do
   let(:movie) { create(:movie) }
   let(:actor) { create(:celebrity, name: 'amr', type: 'Actor') }
   let(:director) { create(:celebrity, name: 'adel', type: 'Director')}
+  let(:user) { create(:user) }
 
   describe 'GET #open_this_week' do
     before(:each) do
@@ -35,6 +36,7 @@ RSpec.describe MoviesController do
 
   describe 'GET #rating_info' do
     before(:each) do
+      user.ratings << create(:rating, rate: 3, movie: movie)
       get :rating_info, xhr: true, params: { movie_id: movie.id }
     end
 
