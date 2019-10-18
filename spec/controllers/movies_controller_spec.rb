@@ -32,4 +32,14 @@ RSpec.describe MoviesController do
       it { expect(assigns(:movies).to_a).not_to be_empty }
     end
   end
+
+  describe 'GET #rating_info' do
+    before(:each) do
+      get :rating_info, xhr: true, params: { movie_id: movie.id }
+    end
+
+    context 'when user asks rating info' do
+      it { expect(JSON.parse(response.body)).not_to be_empty }
+    end
+  end
 end
