@@ -1,7 +1,7 @@
 module MovieServices
-  class List
+  class WeeklyOpening
     def self.call
-      Movie.all
+      Movie.weekly_opening_movies
     end
   end
 end
