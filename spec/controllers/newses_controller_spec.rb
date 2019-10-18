@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe NewsesController do
-  let(:news) { create(:news) }
+  let!(:news) { create(:news) }
 
-  describe 'GET index' do
+  describe 'GET #index' do
     before(:each) do
       get :index, xhr: true
     end
