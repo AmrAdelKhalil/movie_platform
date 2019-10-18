@@ -7,7 +7,7 @@ RSpec.describe GenresController do
   describe 'GET movies_with_genre' do
     before(:each) do
       movie.genres << genre
-      get :movies_with_genre
+      get :movies_with_genre, params: {genre_id: genre.id}, xhr: true
     end
 
     context 'when user asks to see movies of specific genres' do
