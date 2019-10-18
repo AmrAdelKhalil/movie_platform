@@ -17,7 +17,7 @@ RSpec.describe NewsesController do
 
   describe 'GET #search'do
     before(:each) do
-      get :search, xhr: true, params: {by_descrption: news.description[0]}
+      get :search, xhr: true, params: {by_description: news.description[0]}
     end
 
     context 'when user filter news by content' do
