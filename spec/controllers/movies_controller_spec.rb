@@ -57,4 +57,14 @@ RSpec.describe MoviesController do
       end
     end
   end
+
+  describe 'GET #add_review' do
+    before(:each) do
+      get :add_review, xhr: true, params: { movie_id: movie.id }
+    end
+
+    context 'when user asks rating info' do
+      it { expect(JSON.parse(response.body)).not_to be_empty }
+    end
+  end
 end
