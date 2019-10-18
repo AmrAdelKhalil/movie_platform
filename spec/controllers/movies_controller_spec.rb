@@ -32,4 +32,17 @@ RSpec.describe MoviesController do
       it { expect(assigns(:movies).to_a).not_to be_empty }
     end
   end
+
+  describe 'POST #watchlist_it' do
+    context 'when user asks to add movie to watchlist' do
+      login
+
+      before(:each) do
+        get :watchlist_it, xhr: true, params: { movie_id: movie.id }
+      end
+      it 'should be added' do
+        expect(JSON.parse(response.body)['success']).to be_truthy
+      end
+    end
+  end
 end
