@@ -14,4 +14,14 @@ RSpec.describe NewsesController do
       end
     end
   end
+
+  describe 'GET #search'do
+    before(:each) do
+      get :search, xhr: true, params: {by_description: news.description[0]}
+    end
+
+    context 'when user filter news by content' do
+      it { expect(assigns(:news)).not_to be_empty }
+    end
+  end
 end
