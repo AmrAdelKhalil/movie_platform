@@ -1,6 +1,9 @@
 class MoviesController < ApplicationController
   def open_this_week
     @movies = MovieServices::WeeklyOpening.call
+    respond_to do |format|
+      format.js
+    end
   end
 
   def search
