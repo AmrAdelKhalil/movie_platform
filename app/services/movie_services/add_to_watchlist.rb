@@ -2,7 +2,11 @@ module MovieServices
   class AddToWatchlist
     def self.call(user, watchlist_params)
       begin
-        user.watchlist_ids << watchlist_params[:movie_id]
+        movie = Movie.find(watchlist_params[:movie_id])
+        if movie
+          user.watchlist.delete(movie)
+          user.watchlist << movie
+        end
         true
       rescue
         false

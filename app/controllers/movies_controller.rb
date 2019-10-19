@@ -1,5 +1,7 @@
 class MoviesController < ApplicationController
 
+  before_action :set_movie, only: %i(show)
+
   def index
     @movies = MovieServices::List.call
     respond_to do |format|
@@ -42,7 +44,7 @@ class MoviesController < ApplicationController
   end
 
   def show
-    @movie = Movie.first
+    @watchlisted = current_user.watchlist.include?(@movie)
   end
 
   private
@@ -57,5 +59,9 @@ class MoviesController < ApplicationController
 
   def rating_params
     params.permit(:movie_id, :rate)
+  end
+
+  def set_movie
+    @movie = Movie.find(params[:id])
   end
 end
