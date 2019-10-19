@@ -7,9 +7,9 @@ class NewsesController < ApplicationController
   end
 
   def search
-    @news = NewsServices::Filter.call(filter_params)
+    @newses = NewsServices::Filter.call(filter_params)
     respond_to do |format|
-      format.json { render json: @news, status: :ok }
+      format.js
     end
   end
 

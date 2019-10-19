@@ -21,7 +21,7 @@ RSpec.describe NewsesController do
     end
 
     context 'when user filter news by content' do
-      it { expect(assigns(:news)).not_to be_empty }
+      it { expect(assigns(:newses)).not_to be_empty }
     end
   end
 end

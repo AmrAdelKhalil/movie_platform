@@ -1,2 +1,157 @@
-<h1>Dashboards#index</h1>
-<p>Find me in app/views/dashboards/index.html.erb</p>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="#">Movies Platform</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <% if current_user %>
+            <%= link_to "Logout", destroy_user_session_path, method: :delete, class: 'nav-link' %>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+</br>
+</br>
+
+<!-- Page Content -->
+<div class="container">
+
+  <div class="row">
+
+    <!-- Blog Entries Column -->
+    <div class="col-md-8">
+
+      <h1 class="my-4">Movies
+        <small>list</small>
+      </h1>
+
+      <div id="movies-cards-div">
+        <%= render 'movies/partials/list_movies_cards', movies: @movies %>
+      </div>
+
+      <!-- Pagination -->
+<!--      <ul class="pagination justify-content-center mb-4">-->
+<!--        <li class="page-item">-->
+<!--          <a class="page-link" href="#">&larr; Older</a>-->
+<!--        </li>-->
+<!--        <li class="page-item disabled">-->
+<!--          <a class="page-link" href="#">Newer &rarr;</a>-->
+<!--        </li>-->
+<!--      </ul>-->
+
+    </div>
+
+    <!-- Sidebar Widgets Column -->
+    <div class="col-md-4">
+
+      <!-- Filters Widget -->
+      <div class="card my-4">
+        <h5 class="card-header">Filters</h5>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-12">
+              <ul class="list-unstyled mb-0">
+                <li>
+                  <a href="#" id="open-this-week-filter">Opens this week</a>
+                </li>
+                </br>
+                <li>
+                  <select class="form-control" id="genere-dropdown">
+                    <% @genres.each do |genre| %>
+                      <option value="0">All</option>
+                      <option value="<%= genre.id %>"><%= genre.name %></option>
+                    <% end %>
+                  </select>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Side Widget -->
+      <div class="card my-4">
+        <h5 class="card-header">News</h5>
+        <div class="card-body">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search for..." id="search-news-input">
+            <span class="input-group-btn">
+              <button class="btn btn-secondary" type="button" id="news-search-btn">Go!</button>
+            </span>
+          </div>
+          <br>
+          <div id="news-list-div">
+            <%= render 'movies/partials/list_newses', newses: @newses %>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <!-- /.row -->
+
+</div>
+<!-- /.container -->
+
+<!-- Footer -->
+<footer class="py-5 bg-dark">
+  <div class="container">
+    <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
+  </div>
+  <!-- /.container -->
+</footer>
+
+<script>
+    $(document).ready(function () {
+        var all_time_movies = true;
+
+        $('#open-this-week-filter').click(function() {
+            if (all_time_movies) {
+                send_ajax_request("get", "<%= movies_open_this_week_path %>", {}, function() {
+                    $('#open-this-week-filter').addClass('btn btn-secondary');
+                    all_time_movies = false;
+                })
+            } else {
+                send_ajax_request("get", "<%= movies_path %>", {}, function () {
+                    $('#open-this-week-filter').removeClass('btn btn-secondary');
+                    all_time_movies = true;
+                } )
+            }
+        });
+
+        $('#genere-dropdown').change(function() {
+            var genre_id = $(this).val();
+            send_ajax_request("get", "<%= genres_movies_with_genre_path %>", { genre_id: genre_id }, function() {})
+        });
+
+        $('#news-search-btn').click(function() {
+            var search_term = $('#search-news-input').val();
+            send_ajax_request("get", "<%= newses_search_path %>", {by_description: search_term}, function() {})
+        });
+
+        function send_ajax_request(method, url, data, success) {
+            $.ajax({
+                url: url,
+                type: method,
+                data: data,
+                dataType: "script",
+                success: success,
+                error: function (xhr) {
+                }
+            });
+        }
+    });
+</script>

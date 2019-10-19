@@ -11,7 +11,7 @@ RSpec.describe MoviesController do
     before(:each) do
       allow(Time).to receive(:now).and_return(Date.today.beginning_of_week.to_time)
       open_this_week_movie
-      get :open_this_week
+      get :open_this_week, xhr: true
     end
 
     context 'when user asks to see weekly opening movies' do
