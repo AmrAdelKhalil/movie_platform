@@ -15,9 +15,9 @@ class MoviesController < ApplicationController
   end
 
   def search
-    @movies = MovieServices::Filter.call(filter_params)
+    @movies = Movie.where(id: MovieServices::Filter.call(filter_params).map{|r| r['id']})
     respond_to do |format|
-      format.json { render json: @news, status: :ok }
+      format.js
     end
   end
 

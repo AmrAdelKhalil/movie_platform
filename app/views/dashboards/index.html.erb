@@ -64,16 +64,25 @@
             <div class="col-lg-12">
               <ul class="list-unstyled mb-0">
                 <li>
-                  <a href="#" id="open-this-week-filter">Opens this week</a>
-                </li>
-                </br>
-                <li>
                   <select class="form-control" id="genere-dropdown">
                     <% @genres.each do |genre| %>
                       <option value="0">All</option>
                       <option value="<%= genre.id %>"><%= genre.name %></option>
                     <% end %>
                   </select>
+                </li>
+                </br>
+                <li>
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="movie or celebrity name" id="search-movies-celeb-name-input">
+                    <span class="input-group-btn">
+                      <button class="btn btn-secondary" type="button" id="search-movies-celeb-name-search-btn">Go!</button>
+                    </span>
+                  </div>
+                </li>
+                </br>
+                <li>
+                  <a href="#" id="open-this-week-filter">Opens this week</a>
                 </li>
               </ul>
             </div>
@@ -140,6 +149,11 @@
         $('#news-search-btn').click(function() {
             var search_term = $('#search-news-input').val();
             send_ajax_request("get", "<%= newses_search_path %>", {by_description: search_term}, function() {})
+        });
+
+        $('#search-movies-celeb-name-search-btn').click(function() {
+           var search_term = $('#search-movies-celeb-name-input').val();
+           send_ajax_request("get", "<%= movies_search_path %>", {by_movie_name: search_term, by_celebrity_name: search_term}, function() {})
         });
 
         function send_ajax_request(method, url, data, success) {
