@@ -12,6 +12,11 @@
   <body>
     <% unless current_user %>
         <%= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path %>
+        <%= form_for(:user, :url => session_path(:user)) do |f| %>
+          <%= f.text_field :email %>
+          <%= f.password_field :password %>
+          <%= f.submit 'Sign in' %>
+        <% end %>
       <% else %>
         <%= current_user[:name] %>
         <%= link_to "Logout", destroy_user_session_path, method: :delete %>
