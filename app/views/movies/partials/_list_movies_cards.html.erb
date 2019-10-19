@@ -1,7 +1,9 @@
 <% movies.each do |movie| %>
   <!-- Blog Post -->
   <div class="card mb-4">
-    <img class="card-img-top" src="<%= movie.image.url %>" alt="Card image cap">
+    <div style="width: 50%; height: auto;">
+      <img class="card-img-top img-thumbnail" src="<%= movie.image.url %>" alt="Card image cap">
+    </div>
     <div class="card-body">
       <h2 class="card-title"><%= movie.name %></h2>
       <p class="card-text">Release date:
