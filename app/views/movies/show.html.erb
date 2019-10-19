@@ -54,6 +54,27 @@
                   <%= @movie.release_date.strftime('%Y-%m-%d') %>
                 <% end %>
               </p>
+              <p class="card-text">Awards:
+                <% if @movie.awards.empty? %>
+                  No Awards
+                <% else %>
+                  <%= @movie.awards.map(&:name).join(', ') %>
+                <% end %>
+              </p>
+              <p class="card-text">Film Rating:
+                <% if @movie.awards.empty? %>
+                  No Film Rating
+                <% else %>
+                  <%= @movie.film_ratings.map(&:name).join(', ') %>
+                <% end %>
+              </p>
+              <p class="card-text">Director:
+                <% if @movie.celebrities.where(type: 'Director').empty? %>
+                  No Director
+                <% else %>
+                  <%= @movie.celebrities.where(type: 'Director').first.name %>
+                <% end %>
+              </p>
               <div class="input-group">
                 <span class="input-group-btn">
                   <% if @watchlisted %>
@@ -78,6 +99,7 @@
       <br>
       <br>
       <br>
+
       <!-- Side Widget -->
       <div class="card my-4">
         <h5 class="card-header">Rating</h5>
@@ -85,6 +107,14 @@
           <div class="text-center">
             <h1><p id="rate-value"></p></h1>
           </div>
+        </div>
+      </div>
+
+      <!-- Side Widget -->
+      <div class="card my-4">
+        <h5 class="card-header">Actors</h5>
+        <div class="card-body">
+          <%= @movie.celebrities.where(type: 'Actor').map(&:name).join(', ') %>
         </div>
       </div>
 

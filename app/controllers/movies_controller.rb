@@ -62,6 +62,6 @@ class MoviesController < ApplicationController
   end
 
   def set_movie
-    @movie = Movie.find(params[:id])
+    @movie = Movie.includes(:awards, :film_ratings, :celebrities).find(params[:id])
   end
 end
