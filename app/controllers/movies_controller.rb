@@ -1,4 +1,12 @@
 class MoviesController < ApplicationController
+
+  def index
+    @movies = MovieServices::List.call
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def open_this_week
     @movies = MovieServices::WeeklyOpening.call
     respond_to do |format|
@@ -31,6 +39,10 @@ class MoviesController < ApplicationController
     respond_to do |format|
       format.json { render json: response, status: :ok}
     end
+  end
+
+  def show
+    @movie = Movie.first
   end
 
   private

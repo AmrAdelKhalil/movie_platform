@@ -1,0 +1,20 @@
+<% movies.each do |movie| %>
+  <!-- Blog Post -->
+  <div class="card mb-4">
+    <img class="card-img-top" src="<%= movie.image.url %>" alt="Card image cap">
+    <div class="card-body">
+      <h2 class="card-title"><%= movie.name %></h2>
+      <p class="card-text">Release date:
+        <% if movie.release_date.nil? %>
+          Not specified yet.
+        <% else %>
+          <%= movie.release_date.strftime('%Y-%m-%d') %>
+        <% end %>
+      </p>
+      <a href="<%= movie_path(movie.id) %>" class="btn btn-primary">Know More &rarr;</a>
+    </div>
+    <div class="card-footer text-muted">
+      Posted on <%= movie.created_at.strftime('%b, %d %Y') %>
+    </div>
+  </div>
+<% end %>
