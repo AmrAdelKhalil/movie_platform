@@ -80,10 +80,10 @@
       <br>
       <!-- Side Widget -->
       <div class="card my-4">
-        <h5 class="card-header">Rate Graph</h5>
+        <h5 class="card-header">Rating</h5>
         <div class="card-body">
-          <div class="input-group">
-
+          <div class="text-center">
+            <h1><p id="rate-value"></p></h1>
           </div>
         </div>
       </div>
@@ -143,11 +143,19 @@
            if (valid_rate(rate_value)) {
                send_ajax_request("get", "json", "<%= movies_add_review_path %>", {movie_id: "<%= @movie.id %>", rate: rate_value}, function (response) {
                    $('#review-movie-btn').attr('disabled', 'disabled');
+                   $('#review-movie-input').attr('disabled', 'disabled');
+                   $('#rate-value').text(response['score'] + " / 5");
                })
            } else {
                $('#review-movie-input').val('');
            }
         });
+
+        (function() {
+            send_ajax_request("get", "json", "<%= movies_rating_info_path %>", {movie_id: "<%= @movie.id %>"}, function(response) {
+                $('#rate-value').text(response['score'] + " / 5");
+            })
+        })();
 
         function valid_rate(value) {
            return value == '1' || value == '2' || value == '3'|| value == '4'|| value == '5';
@@ -163,6 +171,6 @@
                 error: function (xhr) {
                 }
             });
-}
+        }
     });
 </script>

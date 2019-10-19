@@ -9,7 +9,7 @@ module MovieServices
 
       total = (score_sum.to_f) / ((raters || 1) * Rating::RATE_SCALE)
       {
-        score: total,
+        score: total * Rating::RATE_SCALE,
         number_of_raters: raters,
         percentage: total * 100
       }
