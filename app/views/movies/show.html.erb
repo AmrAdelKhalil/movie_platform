@@ -84,6 +84,12 @@
                   <% end %>
                 </span>
               </div>
+              <p class="card-text">
+                <div class="fb-share-button"
+                     data-href="<%= request.url %>"
+                     data-layout="button_count">
+                </div>
+              </p>
             </div>
           </div>
 
@@ -186,6 +192,15 @@
                 $('#rate-value').text(response['score'] + " / 5");
             })
         })();
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
 
         function valid_rate(value) {
            return value == '1' || value == '2' || value == '3'|| value == '4'|| value == '5';
