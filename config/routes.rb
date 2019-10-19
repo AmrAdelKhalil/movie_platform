@@ -1,9 +1,16 @@
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
-  # devise_scope :user do
-  #   root to: "devise/sessions#new"
-  # end
+  devise_scope :user do
+    # root to: "devise/sessions#new"
+    authenticated :user do
+      root 'dashboards#index', as: :authenticated_root
+    end
+
+    unauthenticated do
+      root 'devise/sessions#new', as: :unauthenticated_root
+    end
+  end
   get 'movies/add_review'
   get 'movies/rating_info'
   get 'movies/watchlist_it'
@@ -13,5 +20,5 @@ Rails.application.routes.draw do
   get 'genres/movies_with_genre'
   get 'movies/open_this_week'
   # get 'dashboards/index'
-  root 'dashboards#index'
+  # root 'devise/sessions#new'
 end
