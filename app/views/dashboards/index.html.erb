@@ -1,30 +1,4 @@
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-  <div class="container">
-    <a class="navbar-brand" href="#">Movies Platform</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home
-            <span class="sr-only">(current)</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <% if current_user %>
-            <%= link_to "Logout", destroy_user_session_path, method: :delete, class: 'nav-link' %>
-          <% end %>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
-</br>
-</br>
-
+<%= render 'shared/navbar' %>
 <!-- Page Content -->
 <div class="container">
 
@@ -129,7 +103,7 @@
 
         $('#open-this-week-filter').click(function() {
             if (all_time_movies) {
-                send_ajax_request("get", "<%= movies_open_this_week_path %>", {}, function() {
+                send_ajax_request("get", "<%= open_this_week_movies_path %>", {}, function() {
                     $('#open-this-week-filter').addClass('btn btn-secondary');
                     all_time_movies = false;
                 })
@@ -143,17 +117,17 @@
 
         $('#genere-dropdown').change(function() {
             var genre_id = $(this).val();
-            send_ajax_request("get", "<%= genres_movies_with_genre_path %>", { genre_id: genre_id }, function() {})
+            send_ajax_request("get", "<%= movies_with_genre_genres_path %>", { genre_id: genre_id }, function() {})
         });
 
         $('#news-search-btn').click(function() {
             var search_term = $('#search-news-input').val();
-            send_ajax_request("get", "<%= newses_search_path %>", {by_description: search_term}, function() {})
+            send_ajax_request("get", "<%= search_newses_path %>", {by_description: search_term}, function() {})
         });
 
         $('#search-movies-celeb-name-search-btn').click(function() {
            var search_term = $('#search-movies-celeb-name-input').val();
-           send_ajax_request("get", "<%= movies_search_path %>", {by_movie_name: search_term, by_celebrity_name: search_term}, function() {})
+           send_ajax_request("get", "<%= search_movies_path %>", {by_movie_name: search_term, by_celebrity_name: search_term}, function() {})
         });
 
         function send_ajax_request(method, url, data, success) {

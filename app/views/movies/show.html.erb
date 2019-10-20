@@ -1,29 +1,4 @@
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-  <div class="container">
-    <a class="navbar-brand" href="#">Movies Platform</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home
-            <span class="sr-only">(current)</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <% if current_user %>
-            <%= link_to "Logout", destroy_user_session_path, method: :delete, class: 'nav-link' %>
-          <% end %>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
-</br>
-</br>
+<%= render 'shared/navbar' %>
 
 <!-- Page Content -->
 <div class="container">
@@ -164,8 +139,7 @@
 <script>
     $(document).ready(function() {
         $('#watchlist-movie-btn').click(function() {
-            send_ajax_request("get", "script", "<%= movies_watchlist_it_path %>", {
-                movie_id: "<%= @movie.id %>"},
+            send_ajax_request("post", "script", "<%= movie_watchlist_it_path(@movie.id) %>", { authenticity_token: window._token },
                 function (response) {
                     $('#watchlist-movie-btn').text('Watchlisted!');
                     $('#watchlist-movie-btn').removeClass('btn-primary');
@@ -177,7 +151,7 @@
         $('#review-movie-btn').click(function () {
            var rate_value = $('#review-movie-input').val();
            if (valid_rate(rate_value)) {
-               send_ajax_request("get", "json", "<%= movies_add_review_path %>", {movie_id: "<%= @movie.id %>", rate: rate_value}, function (response) {
+               send_ajax_request("post", "json", "<%= movie_add_review_path(@movie.id) %>", { rate: rate_value, authenticity_token: window._token }, function (response) {
                    $('#review-movie-btn').attr('disabled', 'disabled');
                    $('#review-movie-input').attr('disabled', 'disabled');
                    $('#rate-value').text(response['score'] + " / 5");
@@ -188,7 +162,7 @@
         });
 
         (function() {
-            send_ajax_request("get", "json", "<%= movies_rating_info_path %>", {movie_id: "<%= @movie.id %>"}, function(response) {
+            send_ajax_request("get", "json", "<%= movie_rating_info_path(@movie.id) %>", {}, function(response) {
                 $('#rate-value').text(response['score'] + " / 5");
             })
         })();

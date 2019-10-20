@@ -3,9 +3,12 @@ require 'rails_helper'
 RSpec.describe GenresController do
   let(:movie) { create(:movie) }
   let(:genre) { create(:genre) }
+  let(:user) { create(:user) }
 
-  describe 'GET movies_with_genre' do
+  describe 'GET #movies_with_genre' do
+
     before(:each) do
+      login(user)
       movie.genres << genre
       get :movies_with_genre, params: {genre_id: genre.id}, xhr: true
     end

@@ -7,8 +7,38 @@ RSpec.describe MoviesController do
   let(:director) { create(:celebrity, name: 'adel', type: 'Director')}
   let(:user) { create(:user) }
 
-  describe 'GET #open_this_week' do
+  describe 'GET #index' do
+
     before(:each) do
+      login(user)
+
+      movie
+      get :index, xhr: true
+    end
+
+    context 'when user asks to see weekly opening movies' do
+      it { expect(assigns(:movies)).not_to be_empty }
+    end
+  end
+
+  describe 'GET #show' do
+
+    before(:each) do
+      login(user)
+
+      get :show, xhr: true, params: {id: movie.id}
+    end
+
+    context 'when user asks to see weekly opening movies' do
+      it { expect(assigns(:movie)).to eq(movie) }
+    end
+  end
+
+  describe 'GET #open_this_week' do
+
+    before(:each) do
+      login(user)
+
       allow(Time).to receive(:now).and_return(Date.today.beginning_of_week.to_time)
       open_this_week_movie
       get :open_this_week, xhr: true
@@ -24,7 +54,9 @@ RSpec.describe MoviesController do
   end
 
   describe 'GET #search' do
+
     before(:each) do
+      login(user)
       movie.celebrities << [actor, director]
       get :search, xhr: true, params: { by_movie_name: 'a', by_celebrity_name: 'd' }
     end
@@ -35,7 +67,9 @@ RSpec.describe MoviesController do
   end
 
   describe 'GET #rating_info' do
+
     before(:each) do
+      login(user)
       user.ratings << create(:rating, rate: 3, movie: movie)
       get :rating_info, xhr: true, params: { movie_id: movie.id }
     end
@@ -46,10 +80,10 @@ RSpec.describe MoviesController do
   end
 
   describe 'POST #watchlist_it' do
-    context 'when user asks to add movie to watchlist' do
-      login
 
+    context 'when user asks to add movie to watchlist' do
       before(:each) do
+        login(user)
         get :watchlist_it, xhr: true, params: { movie_id: movie.id }
       end
       it 'should be added' do
@@ -59,9 +93,9 @@ RSpec.describe MoviesController do
   end
 
   describe 'GET #add_review' do
-    login
 
     before(:each) do
+      login(user)
       get :add_review, xhr: true, params: { movie_id: movie.id, rate: 3 }
     end
 

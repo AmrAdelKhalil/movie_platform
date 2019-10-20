@@ -2,9 +2,12 @@ require 'rails_helper'
 
 RSpec.describe NewsesController do
   let!(:news) { create(:news) }
+  let(:user) { create(:user) }
 
   describe 'GET #index' do
+
     before(:each) do
+      login(user)
       get :index, xhr: true
     end
 
@@ -17,6 +20,7 @@ RSpec.describe NewsesController do
 
   describe 'GET #search'do
     before(:each) do
+      login(user)
       get :search, xhr: true, params: {by_description: news.description[0]}
     end
 
