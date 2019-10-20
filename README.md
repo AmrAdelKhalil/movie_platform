@@ -60,7 +60,7 @@ You have to configure the `database.yml` to be:
           password: <%= ENV['MOVIES_PLATFORM_DATABASE_PASSWORD'] %>
 
 
-####steps
+#### steps
 After cloning and getting into the project using the terminal all you have to run is this command:
 
         docker-compose up --build
@@ -73,7 +73,7 @@ To run the test cases, Make sure that you opened a terminal inside the project a
 
     rspec
 
-##Notices
+## Notices
 
 * An admin account is created by default with the following credentials
 
