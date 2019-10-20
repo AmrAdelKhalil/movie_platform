@@ -103,7 +103,7 @@
 
         $('#open-this-week-filter').click(function() {
             if (all_time_movies) {
-                send_ajax_request("get", "<%= movies_open_this_week_path %>", {}, function() {
+                send_ajax_request("get", "<%= open_this_week_movies_path %>", {}, function() {
                     $('#open-this-week-filter').addClass('btn btn-secondary');
                     all_time_movies = false;
                 })
@@ -117,17 +117,17 @@
 
         $('#genere-dropdown').change(function() {
             var genre_id = $(this).val();
-            send_ajax_request("get", "<%= genres_movies_with_genre_path %>", { genre_id: genre_id }, function() {})
+            send_ajax_request("get", "<%= movies_with_genre_genres_path %>", { genre_id: genre_id }, function() {})
         });
 
         $('#news-search-btn').click(function() {
             var search_term = $('#search-news-input').val();
-            send_ajax_request("get", "<%= newses_search_path %>", {by_description: search_term}, function() {})
+            send_ajax_request("get", "<%= search_newses_path %>", {by_description: search_term}, function() {})
         });
 
         $('#search-movies-celeb-name-search-btn').click(function() {
            var search_term = $('#search-movies-celeb-name-input').val();
-           send_ajax_request("get", "<%= movies_search_path %>", {by_movie_name: search_term, by_celebrity_name: search_term}, function() {})
+           send_ajax_request("get", "<%= search_movies_path %>", {by_movie_name: search_term, by_celebrity_name: search_term}, function() {})
         });
 
         function send_ajax_request(method, url, data, success) {
