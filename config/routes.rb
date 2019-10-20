@@ -11,9 +11,9 @@ Rails.application.routes.draw do
       root 'devise/sessions#new', as: :unauthenticated_root
     end
   end
-  get 'movies/add_review'
+  post 'movies/add_review'
   get 'movies/rating_info'
-  get 'movies/watchlist_it'
+  post 'movies/watchlist_it'
   get 'movies/search'
   get 'newses/search'
   get 'newses/index'

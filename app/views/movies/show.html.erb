@@ -139,8 +139,8 @@
 <script>
     $(document).ready(function() {
         $('#watchlist-movie-btn').click(function() {
-            send_ajax_request("get", "script", "<%= movies_watchlist_it_path %>", {
-                movie_id: "<%= @movie.id %>"},
+            send_ajax_request("post", "script", "<%= movies_watchlist_it_path %>", {
+                movie_id: "<%= @movie.id %>", authenticity_token: window._token},
                 function (response) {
                     $('#watchlist-movie-btn').text('Watchlisted!');
                     $('#watchlist-movie-btn').removeClass('btn-primary');
@@ -152,7 +152,7 @@
         $('#review-movie-btn').click(function () {
            var rate_value = $('#review-movie-input').val();
            if (valid_rate(rate_value)) {
-               send_ajax_request("get", "json", "<%= movies_add_review_path %>", {movie_id: "<%= @movie.id %>", rate: rate_value}, function (response) {
+               send_ajax_request("post", "json", "<%= movies_add_review_path %>", {movie_id: "<%= @movie.id %>", rate: rate_value, authenticity_token: window._token}, function (response) {
                    $('#review-movie-btn').attr('disabled', 'disabled');
                    $('#review-movie-input').attr('disabled', 'disabled');
                    $('#rate-value').text(response['score'] + " / 5");
