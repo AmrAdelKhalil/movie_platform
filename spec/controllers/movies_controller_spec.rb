@@ -39,7 +39,7 @@ RSpec.describe MoviesController do
     before(:each) do
       login(user)
 
-      allow(Time).to receive(:now).and_return(Date.today.beginning_of_week.to_time)
+      allow(Time).to receive(:now).and_return(Date.today.beginning_of_week(start_day = :saturday).to_time)
       open_this_week_movie
       get :open_this_week, xhr: true
     end
