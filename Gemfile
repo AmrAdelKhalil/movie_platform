@@ -21,6 +21,7 @@ gem 'uglifier', '>= 1.3.0'
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'factory_bot_rails'
+  gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
   gem 'pry', '~> 0.12.2'
   gem 'rspec-rails', '~> 3.8'
   gem 'rails-controller-testing'
@@ -35,7 +36,6 @@ end
 
 group :test do
   gem 'database_cleaner'
-  gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
