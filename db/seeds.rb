@@ -1,3 +1,6 @@
+# Creating Admin
+User.create(email: 'admin@admin.admin', password: '123456', password_confirmation: '123456', admin: true)
+
 # Creating Movies
 harry_potter = Movie.new(name: 'Harry Potter', release_date: Time.now - 2.weeks)
 harry_potter.image = Pathname.new("#{Rails.root}/public/harry_potter.jpg").open

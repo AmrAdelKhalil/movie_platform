@@ -1,24 +1,29 @@
-# README
+## Environment Required
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* Ruby (2.5.1)
+* Rails (5.2.3)
+* Postgresql (9.5.19)
 
-Things you may want to cover:
+## Setup
 
-* Ruby version
+Assuming you have the required environment installed, By following the next step you will be able to run the project locally.
 
-* System dependencies
+* First thing we have to clone the repo, run:
+    
+       git clone https://github.com/AmrAdelKhalil/movie_platform.git
+       
+* Open a terminal and move inside the project directory.
+* Open the `config/database.yml` file and replace the `username` and `password` attributes with you own.
+* After changing the database configurations run the following commands in the specified order.
 
-* Configuration
+      rake db:create
+      rake db:migrate
+      rake db:seed
+* If the above steps walk smoothly, Then you will be able to run the server by running:
 
-* Database creation
+        rails server
+* Open a browser and visit `http://localhost:3000`.
 
-* Database initialization
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+##Notices
+*
