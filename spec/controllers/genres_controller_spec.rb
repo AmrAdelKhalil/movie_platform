@@ -5,7 +5,7 @@ RSpec.describe GenresController do
   let(:genre) { create(:genre) }
   let(:user) { create(:user) }
 
-  describe 'GET movies_with_genre' do
+  describe 'GET #movies_with_genre' do
 
     before(:each) do
       login(user)

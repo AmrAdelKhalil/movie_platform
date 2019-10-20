@@ -7,6 +7,33 @@ RSpec.describe MoviesController do
   let(:director) { create(:celebrity, name: 'adel', type: 'Director')}
   let(:user) { create(:user) }
 
+  describe 'GET #index' do
+
+    before(:each) do
+      login(user)
+
+      movie
+      get :index, xhr: true
+    end
+
+    context 'when user asks to see weekly opening movies' do
+      it { expect(assigns(:movies)).not_to be_empty }
+    end
+  end
+
+  describe 'GET #show' do
+
+    before(:each) do
+      login(user)
+
+      get :show, xhr: true, params: {id: movie.id}
+    end
+
+    context 'when user asks to see weekly opening movies' do
+      it { expect(assigns(:movie)).to eq(movie) }
+    end
+  end
+
   describe 'GET #open_this_week' do
 
     before(:each) do
