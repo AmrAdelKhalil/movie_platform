@@ -6,6 +6,8 @@
 
 ## Setup
 
+### WAY 1
+
 Assuming you have the required environment installed, By following the next step you will be able to run the project locally.
 
 * First thing we have to clone the repo, run:
@@ -23,6 +25,47 @@ Assuming you have the required environment installed, By following the next step
 
         rails server
 * Open a browser and visit `http://localhost:3000`.
+
+### WAY2
+Docker comes to make life easier, So you can run the project using it too.
+
+Environment needed are:
+
+* docker
+* docker-compose
+
+You have to configure the `database.yml` to be:
+
+        default: &default
+          adapter: postgresql
+          encoding: unicode
+          host: db
+          port: 5432
+          username: postgres
+          password:
+          pool: 5
+        
+        development:
+          <<: *default
+          database: movies_platform_development
+        
+        test:
+          <<: *default
+          database: movies_platform_test
+        
+        production:
+          <<: *default
+          database: movies_platform_production
+          username: movies_platform
+          password: <%= ENV['MOVIES_PLATFORM_DATABASE_PASSWORD'] %>
+
+
+####steps
+After cloning and getting into the project using the terminal all you have to run is this command:
+
+        docker-compose up --build
+        
+then you can visit `http://localhost:3000`
 
 ## TESTS
 
