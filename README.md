@@ -24,6 +24,18 @@ Assuming you have the required environment installed, By following the next step
         rails server
 * Open a browser and visit `http://localhost:3000`.
 
+## TESTS
+
+To run the test cases, Make sure that you opened a terminal inside the project and then run:
+
+    rspec
 
 ##Notices
-*
+
+* An admin account is created by default with the following credentials
+
+        email: admin@admin.admin
+        password: 123456
+* I kept my facebook app credentials into the project, I know it should be inside a `.env` file but I left them so that it could fasten the testing with the app, Anyway the secret will be changed after a week, So if there is an error because of that be create your own facebook app and put the credentials inside `config/initializers/devise.rb` with
+    
+        config.omniauth :facebook, APP_ID, APP_SECRET, callback_url: "http://localhost:3000/users/auth/facebook/callback"
