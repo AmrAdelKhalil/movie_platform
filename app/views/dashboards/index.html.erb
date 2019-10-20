@@ -28,8 +28,8 @@
               <ul class="list-unstyled mb-0">
                 <li>
                   <select class="form-control" id="genere-dropdown">
+                    <option value="0">All</option>
                     <% @genres.each do |genre| %>
-                      <option value="0">All</option>
                       <option value="<%= genre.id %>"><%= genre.name %></option>
                     <% end %>
                   </select>
