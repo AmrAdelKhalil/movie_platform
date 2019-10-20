@@ -1,6 +1,6 @@
 class MoviesController < ApplicationController
 
-  before_action :set_movie, only: %i(show)
+  before_action :set_movie, only: %i[show]
 
   def index
     @movies = MovieServices::List.call
@@ -25,7 +25,7 @@ class MoviesController < ApplicationController
 
   def rating_info
     respond_to do |format|
-      format.json { render json: MovieServices::RatingInfo.call(params[:movie_id]), status: :ok}
+      format.json { render json: MovieServices::RatingInfo.call(params[:movie_id]), status: :ok }
     end
   end
 
