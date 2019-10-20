@@ -30,6 +30,5 @@ module MoviesPlatform
     # Don't generate system test files.
     config.generators.system_tests = nil
 
-    Date.beginning_of_week = :saturday
   end
 end
