@@ -2,9 +2,12 @@ require 'rails_helper'
 
 RSpec.describe DashboardsController do
   let!(:movie) { create(:movie) }
+  let(:user) { create(:user) }
 
   describe 'GET index' do
+
     before(:each) do
+      login(user)
       get :index
     end
 

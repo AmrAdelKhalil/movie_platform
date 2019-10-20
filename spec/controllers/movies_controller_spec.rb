@@ -8,7 +8,10 @@ RSpec.describe MoviesController do
   let(:user) { create(:user) }
 
   describe 'GET #open_this_week' do
+
     before(:each) do
+      login(user)
+
       allow(Time).to receive(:now).and_return(Date.today.beginning_of_week.to_time)
       open_this_week_movie
       get :open_this_week, xhr: true
@@ -24,7 +27,9 @@ RSpec.describe MoviesController do
   end
 
   describe 'GET #search' do
+
     before(:each) do
+      login(user)
       movie.celebrities << [actor, director]
       get :search, xhr: true, params: { by_movie_name: 'a', by_celebrity_name: 'd' }
     end
@@ -35,7 +40,9 @@ RSpec.describe MoviesController do
   end
 
   describe 'GET #rating_info' do
+
     before(:each) do
+      login(user)
       user.ratings << create(:rating, rate: 3, movie: movie)
       get :rating_info, xhr: true, params: { movie_id: movie.id }
     end
@@ -46,10 +53,10 @@ RSpec.describe MoviesController do
   end
 
   describe 'POST #watchlist_it' do
-    context 'when user asks to add movie to watchlist' do
-      login
 
+    context 'when user asks to add movie to watchlist' do
       before(:each) do
+        login(user)
         get :watchlist_it, xhr: true, params: { movie_id: movie.id }
       end
       it 'should be added' do
@@ -59,9 +66,9 @@ RSpec.describe MoviesController do
   end
 
   describe 'GET #add_review' do
-    login
 
     before(:each) do
+      login(user)
       get :add_review, xhr: true, params: { movie_id: movie.id, rate: 3 }
     end
 
